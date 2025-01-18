@@ -1,15 +1,17 @@
-import "dotenv/config";
-import { REST, Routes } from "discord.js";
-import { SorteioCommand } from "./commands/sorteio";
+import 'dotenv/config';
+import { REST, Routes } from 'discord.js';
+import { Raffle } from './commands/raffle';
+import { getOrThrow } from './utils';
 
-const { TOKEN, APPLICATION_ID } = process.env as Record<string, string>;
+const token = getOrThrow('TOKEN');
+const applicationId = getOrThrow('APPLICATION_ID');
 
-const rest = new REST({ version: "10" }).setToken(TOKEN);
+const rest = new REST().setToken(token);
 
 export const deployCommands = async () => {
   try {
-    await rest.put(Routes.applicationCommands(APPLICATION_ID), {
-      body: [SorteioCommand.config],
+    await rest.put(Routes.applicationCommands(applicationId), {
+      body: [Raffle.config],
     });
   } catch (error) {
     console.error(error);

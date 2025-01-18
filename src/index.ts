@@ -1,4 +1,4 @@
-import "dotenv/config";
+import 'dotenv/config';
 
 import {
   CacheType,
@@ -6,9 +6,9 @@ import {
   Events,
   GatewayIntentBits,
   Interaction,
-} from "discord.js";
-import { deployCommands } from "./deploy-commands";
-import { SorteioCommand } from "./commands/sorteio";
+} from 'discord.js';
+import { deployCommands } from './deploy-commands';
+import { Raffle } from './commands/raffle';
 
 const client = new Client({
   intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildVoiceStates],
@@ -20,7 +20,7 @@ client.once(Events.ClientReady, async (readyClient) => {
 });
 
 const commands: Record<string, Function> = {
-  sorteio: SorteioCommand.exec,
+  sorteio: Raffle.exec,
 };
 
 client.on(
@@ -32,7 +32,7 @@ client.on(
 
     if (!command) {
       console.error(
-        `No command matching ${interaction.commandName} was found.`
+        `No command matching ${interaction.commandName} was found.`,
       );
       return;
     }
@@ -43,17 +43,17 @@ client.on(
       console.error(error);
       if (interaction.replied || interaction.deferred) {
         await interaction.followUp({
-          content: "There was an error while executing this command!",
+          content: 'There was an error while executing this command!',
           ephemeral: true,
         });
       } else {
         await interaction.reply({
-          content: "There was an error while executing this command!",
+          content: 'There was an error while executing this command!',
           ephemeral: true,
         });
       }
     }
-  }
+  },
 );
 
 client.login(process.env.TOKEN);
