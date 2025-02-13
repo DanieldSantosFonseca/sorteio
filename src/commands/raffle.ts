@@ -113,8 +113,10 @@ class RaffleCommand {
       .random(quantity)
       .map((member) => member.user.toString());
 
+    const award = interaction.options.getString('award');
+
     const content = winners
-      .map((winner) => `**Parabéns, ${winner}** 🎉🎊`)
+      .map((winner) => `**Parabéns, ${winner}** ${award} 🎉🎊`)
       .join('\n');
 
     interaction.reply({
