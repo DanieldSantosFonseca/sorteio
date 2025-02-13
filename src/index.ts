@@ -20,7 +20,8 @@ client.once(Events.ClientReady, async (readyClient) => {
 });
 
 const commands: Record<string, Function> = {
-  sorteio: Raffle.exec,
+  sorteio: Raffle.exec.bind(Raffle),
+  raffle: Raffle.exec.bind(Raffle),
 };
 
 client.on(

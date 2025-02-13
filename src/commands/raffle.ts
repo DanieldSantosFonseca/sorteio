@@ -55,8 +55,6 @@ class RaffleCommand {
   async exec(interaction: ChatInputCommandInteraction) {
     const quantity = interaction.options.getInteger('quantity') ?? 1;
 
-    console.log({ interaction });
-
     if (quantity < 1) {
       return interaction.reply({
         content:
@@ -83,7 +81,7 @@ class RaffleCommand {
       });
     }
 
-    console.log({ permission: this.options.roleId });
+    console.log({ permission: this.options });
     console.log(member.roles.cache.has(this.options.roleId));
 
     if (!member.roles.cache.has(this.options.roleId)) {
